@@ -26,7 +26,7 @@ resource "cloudstack_instance" "webserver" {
   service_offering = var.instance_service_offering
   template         = var.instance_template
   zone             = var.zone
-  network          = cloudstack_network.webserver_network.name
+  network_id       = cloudstack_network.webserver_network.id
 
   user_data = var.domain_name != "" ? templatefile("${path.module}/cloud-init-https.yaml", {
     ssh_public_key = var.ssh_public_key
@@ -38,7 +38,7 @@ resource "cloudstack_instance" "webserver" {
 }
 
 resource "cloudstack_ipaddress" "webserver_ip" {
-  network = cloudstack_network.webserver_network.name
+  network_id = cloudstack_network.webserver_network.id
 }
 
 resource "cloudstack_port_forward" "webserver_ports" {
@@ -53,10 +53,10 @@ resource "cloudstack_port_forward" "webserver_ports" {
 
   ip_address_id = cloudstack_ipaddress.webserver_ip.id
   forward {
-    protocol       = "tcp"
-    publicport     = each.value
-    privateport    = each.value
-    virtualmachine = cloudstack_instance.webserver.id
+    protocol          = "tcp"
+    public_port       = each.value
+    private_port      = each.value
+    virtual_machine_id = cloudstack_instance.webserver.id
   }
 }
 
@@ -64,27 +64,24 @@ resource "cloudstack_firewall" "ingress" {
   ip_address_id = cloudstack_ipaddress.webserver_ip.id
 
   rule {
-    protocol   = "tcp"
-    start_port = 80
-    end_port   = 80
-    cidr_list  = ["0.0.0.0/0"]
+    protocol  = "tcp"
+    ports     = ["80"]
+    cidr_list = ["0.0.0.0/0"]
   }
 
   dynamic "rule" {
     for_each = var.domain_name != "" ? [1] : []
     content {
-      protocol   = "tcp"
-      start_port = 443
-      end_port   = 443
-      cidr_list  = ["0.0.0.0/0"]
+      protocol  = "tcp"
+      ports     = ["443"]
+      cidr_list = ["0.0.0.0/0"]
     }
   }
 
   rule {
-    protocol   = "tcp"
-    start_port = 22
-    end_port   = 22
-    cidr_list  = var.ssh_allowed_ips
+    protocol  = "tcp"
+    ports     = ["22"]
+    cidr_list = var.ssh_allowed_ips
   }
 }
 
@@ -92,31 +89,27 @@ resource "cloudstack_egress_firewall" "egress" {
   network_id = cloudstack_network.webserver_network.id
 
   rule {
-    protocol   = "tcp"
-    start_port = 80
-    end_port   = 80
-    cidr_list  = ["0.0.0.0/0"]
+    protocol  = "tcp"
+    ports     = ["80"]
+    cidr_list = ["0.0.0.0/0"]
   }
 
   rule {
-    protocol   = "tcp"
-    start_port = 443
-    end_port   = 443
-    cidr_list  = ["0.0.0.0/0"]
+    protocol  = "tcp"
+    ports     = ["443"]
+    cidr_list = ["0.0.0.0/0"]
   }
 
   rule {
-    protocol   = "udp"
-    start_port = 53
-    end_port   = 53
-    cidr_list  = ["0.0.0.0/0"]
+    protocol  = "udp"
+    ports     = ["53"]
+    cidr_list = ["0.0.0.0/0"]
   }
 
   rule {
-    protocol   = "tcp"
-    start_port = 53
-    end_port   = 53
-    cidr_list  = ["0.0.0.0/0"]
+    protocol  = "tcp"
+    ports     = ["53"]
+    cidr_list = ["0.0.0.0/0"]
   }
 }
 
