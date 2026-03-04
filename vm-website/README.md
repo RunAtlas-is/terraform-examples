@@ -118,3 +118,37 @@ Successfully deployed example: **http://149.126.81.28/**
 | `cloud-init-http.yaml` | HTTP setup (nginx) |
 | `cloud-init-https.yaml` | HTTPS setup (traefik + nginx) |
 | `terraform.tfvars.example` | Example configuration |
+| `FIREWALL_ISSUES.md` | Troubleshooting guide for CloudStack firewall issues |
+
+## Troubleshooting
+
+### Error 530: Failed to create firewall rule
+
+**Symptom:** Terraform apply fails with error 530 when creating firewall rules.
+
+**Cause:** CloudStack reuses public IPs that retain firewall rules from previous deployments.
+
+**Solution:** This terraform configuration uses `managed = true` on firewall resources, which automatically handles cleanup. If issues persist, see [FIREWALL_ISSUES.md](./FIREWALL_ISSUES.md) for detailed troubleshooting steps.
+
+### Error 530: Failed to delete network
+
+**Symptom:** Terraform destroy fails to delete network with error 530.
+
+**Cause:** CloudStack has a known bug/limitation preventing network deletion.
+
+**Impact:** Networks accumulate but don't block new deployments (duplicate names allowed).
+
+**Workaround:** Orphaned networks must be cleaned up by CloudStack administrators.
+
+### Website not accessible from external IP
+
+**Symptom:** `curl localhost` works on VM but external access times out.
+
+**Cause:** Firewall rules not applied correctly or ingress rules missing.
+
+**Solution:** 
+1. Verify firewall rules exist: `terraform show | grep -A 20 cloudstack_firewall`
+2. Check CloudStack UI for firewall rules on the public IP
+3. See [FIREWALL_ISSUES.md](./FIREWALL_ISSUES.md) for detailed debugging
+
+For comprehensive troubleshooting guide, see [FIREWALL_ISSUES.md](./FIREWALL_ISSUES.md).

@@ -15,14 +15,14 @@ provider "cloudstack" {
 }
 
 resource "cloudstack_network" "webserver_network" {
-  name             = "webserver-network"
+  name             = "webserver-network-v2"
   cidr             = "10.1.0.0/24"
   network_offering = var.network_offering
   zone             = var.zone
 }
 
 resource "cloudstack_instance" "webserver" {
-  name             = "webserver-vm"
+  name             = "webserver-vm-${formatdate("YYYYMMDD-hhmm", timestamp())}"
   service_offering = var.instance_service_offering
   template         = var.instance_template
   zone             = var.zone
@@ -62,6 +62,7 @@ resource "cloudstack_port_forward" "webserver_ports" {
 
 resource "cloudstack_firewall" "ingress" {
   ip_address_id = cloudstack_ipaddress.webserver_ip.id
+  managed       = true  # Automatically manage all firewall rules for this IP
 
   rule {
     protocol  = "tcp"
@@ -87,6 +88,7 @@ resource "cloudstack_firewall" "ingress" {
 
 resource "cloudstack_egress_firewall" "egress" {
   network_id = cloudstack_network.webserver_network.id
+  managed    = true  # Automatically manage all egress firewall rules for this network
 
   rule {
     protocol  = "tcp"
