@@ -2,9 +2,7 @@
 
 Deploy a website on Atlas Cloud with Terraform. Supports both HTTP (no domain) and HTTPS (with Let's Encrypt via Traefik).
 
-![Website Screenshot](./screenshot.png)
-
-> **Note:** Add your screenshot as `screenshot.png` in the `vm-website/` directory
+![Website Screenshot](./hello-atlas.png)
 
 ## Quick Start
 
