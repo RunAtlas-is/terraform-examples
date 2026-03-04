@@ -35,14 +35,14 @@ variable "email_address" {
 
 variable "zone" {
   type        = string
-  default     = "Atlas-alpha"
+  default     = "is1"
   description = "Atlas Cloud zone"
 }
 
 variable "instance_service_offering" {
   type        = string
-  default     = "Small Instance"
-  description = "VM instance size"
+  default     = "Atlas.a4"
+  description = "VM instance size (Atlas.a4 = 2 vCPU, 4GB RAM, 20GB disk)"
 }
 
 variable "instance_template" {
@@ -53,8 +53,8 @@ variable "instance_template" {
 
 variable "network_offering" {
   type        = string
-  default     = "DefaultSharedNetworkOffering"
-  description = "Network offering type"
+  default     = "DefaultIsolatedNetworkOfferingWithSourceNatService"
+  description = "Network offering type (use DefaultIsolatedNetworkOfferingWithSourceNatService for Atlas Cloud)"
 }
 
 variable "ssh_allowed_ips" {
