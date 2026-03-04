@@ -32,7 +32,7 @@ resource "cloudstack_instance" "webserver" {
     ssh_public_key = var.ssh_public_key
     domain_name    = var.domain_name
     email_address  = var.email_address
-  }) : templatefile("${path.module}/cloud-init-http.yaml", {
+    }) : templatefile("${path.module}/cloud-init-http.yaml", {
     ssh_public_key = var.ssh_public_key
   })
 }
@@ -46,23 +46,23 @@ resource "cloudstack_port_forward" "webserver_ports" {
     http  = 80
     https = 443
     ssh   = 22
-  } : {
+    } : {
     http = 80
     ssh  = 22
   }
 
   ip_address_id = cloudstack_ipaddress.webserver_ip.id
   forward {
-    protocol          = "tcp"
-    public_port       = each.value
-    private_port      = each.value
+    protocol           = "tcp"
+    public_port        = each.value
+    private_port       = each.value
     virtual_machine_id = cloudstack_instance.webserver.id
   }
 }
 
 resource "cloudstack_firewall" "ingress" {
   ip_address_id = cloudstack_ipaddress.webserver_ip.id
-  managed       = true  # Automatically manage all firewall rules for this IP
+  managed       = true # Automatically manage all firewall rules for this IP
 
   rule {
     protocol  = "tcp"
@@ -88,7 +88,7 @@ resource "cloudstack_firewall" "ingress" {
 
 resource "cloudstack_egress_firewall" "egress" {
   network_id = cloudstack_network.webserver_network.id
-  managed    = true  # Automatically manage all egress firewall rules for this network
+  managed    = true # Automatically manage all egress firewall rules for this network
 
   rule {
     protocol  = "tcp"
