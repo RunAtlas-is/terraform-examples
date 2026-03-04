@@ -13,8 +13,8 @@ email_address = ""  # e.g., "you@example.com" (required if domain_name is set)
 # Security (restrict for production)
 ssh_allowed_ips = ["0.0.0.0/0"]
 
-# Infrastructure (defaults are usually fine)
-zone                      = "Atlas-alpha"
-instance_service_offering = "Small Instance"
-instance_template         = "Ubuntu 24.04 LTS"
-network_offering          = "DefaultSharedNetworkOffering"
+# Infrastructure (defaults are optimized for Atlas Cloud - usually no need to change)
+# zone                      = "is1"
+# instance_service_offering = "Atlas.a4"
+# instance_template         = "Ubuntu 24.04 LTS"
+# network_offering          = "DefaultIsolatedNetworkOfferingWithSourceNatService"

@@ -4,20 +4,22 @@ A collection of Terraform examples for deploying infrastructure on [Atlas Cloud]
 
 ## Examples
 
-| Example | Description |
-|---------|-------------|
-| [vm-website](./vm-website) | Deploy a website on a VM with HTTP or HTTPS (Let's Encrypt via Traefik) |
+| Example | Description | Difficulty |
+|---------|-------------|------------|
+| [vm-website](./vm-website) | Deploy a website on a VM with HTTP or HTTPS (Let's Encrypt via Traefik) | 🟢 Beginner |
 
 ## Quick Start
+
+All examples are **plug-and-play** - just add your credentials:
 
 ```bash
 # Clone the repository
 git clone https://github.com/RunAtlas-is/terraform-examples.git
 cd terraform-examples/vm-website
 
-# Configure your variables
+# Configure your credentials (only 3 required fields)
 cp terraform.tfvars.example terraform.tfvars
-# Edit terraform.tfvars with your API keys and settings
+vim terraform.tfvars
 
 # Deploy
 terraform init
