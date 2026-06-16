@@ -1,0 +1,19 @@
+name: PR validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited, reopened, synchronize]
+
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: write
+
+jobs:
+  hygiene:
+    uses: RunAtlas-is/.github/.github/workflows/pr-hygiene.yml@main
