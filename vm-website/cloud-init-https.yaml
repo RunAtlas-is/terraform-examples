@@ -37,7 +37,7 @@ write_files:
     content: |
       services:
         traefik:
-          image: traefik:v3
+          image: traefik:v3@sha256:575fa15b135078fe5e50aa847987d96dbddd7b093c172429618404df73f3fa7c
           command:
             - "--providers.docker=true"
             - "--entrypoints.web.address=:80"
@@ -53,7 +53,7 @@ write_files:
             - "letsencrypt:/letsencrypt"
         
         nginx:
-          image: nginx:alpine
+          image: nginx:alpine@sha256:df221db836e1754089190208cee7eeda94f233197056426eda74a43ab1abeac2
           labels:
             - "traefik.enable=true"
             - "traefik.http.routers.nginx.rule=Host(`${domain_name}`)"
