@@ -49,9 +49,9 @@ The terraform configuration automatically:
 
 ```hcl
 # CloudStack Configuration
-cloudstack_api_url    = "https://sky.runatlas.is/client/api"
-cloudstack_api_key    = "your-api-key"           # Get from sky.runatlas.is
-cloudstack_secret_key = "your-secret-key"        # Get from sky.runatlas.is
+cloudstack_api_url    = "https://sky.atlascloud.is/client/api"
+cloudstack_api_key    = "your-api-key"           # Get from sky.atlascloud.is
+cloudstack_secret_key = "your-secret-key"        # Get from sky.atlascloud.is
 
 # SSH Access
 ssh_public_key = "ssh-rsa AAAA..."               # Your SSH public key
@@ -70,7 +70,7 @@ email_address = ""  # e.g., "you@example.com" (required if domain_name is set)
 
 **Minimal configuration** - You only need to provide:
 
-1. **CloudStack API credentials** - Get from [sky.runatlas.is](https://sky.runatlas.is)
+1. **CloudStack API credentials** - Get from [sky.atlascloud.is](https://sky.atlascloud.is)
 2. **SSH public key** - For VM access
 
 **Optional configuration:**
