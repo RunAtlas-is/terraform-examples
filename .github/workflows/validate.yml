@@ -12,7 +12,7 @@ permissions:
 jobs:
   validate:
     name: Terraform fmt and validate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -20,6 +20,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
         with:
+          terraform_version: 1.16.6
           terraform_wrapper: false
 
       - name: terraform fmt
@@ -37,3 +38,21 @@ jobs:
             (cd "${dir}" && terraform init -backend=false && terraform validate) || status=1
           done < <(find . -mindepth 1 -name '*.tf' -printf '%h\0' | sort -zu)
           exit "${status}"
+
+  pin-lint:
+    name: Pin lint
+    # Fails on references that can change without a commit: images without
+    # a digest, -latest runners, unversioned setup steps and unchecked
+    # downloads. .github/scripts/pin-lint.ts names its source.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.4.3
+
+      - name: Check pinned references
+        run: bun .github/scripts/pin-lint.ts .
