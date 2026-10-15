@@ -1,6 +1,6 @@
 # Terraform Examples for Atlas Cloud
 
-A collection of Terraform examples for deploying infrastructure on [Atlas Cloud](https://runatlas.is).
+A collection of Terraform examples for deploying infrastructure on [Atlas Cloud](https://atlascloud.is).
 
 ## Examples
 
@@ -34,13 +34,13 @@ terraform apply
 
 ## Getting API Credentials
 
-1. Log in to [sky.runatlas.is](https://sky.runatlas.is)
+1. Log in to [sky.atlascloud.is](https://sky.atlascloud.is)
 2. Click your profile (top-right corner)
 3. Copy your **API Key** and **Secret Key**
 
 ## Documentation
 
-Full documentation available at [docs.runatlas.is](https://docs.runatlas.is)
+Full documentation available at [docs.atlascloud.is](https://docs.atlascloud.is)
 
 ## License
 
