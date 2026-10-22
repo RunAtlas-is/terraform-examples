@@ -31,7 +31,10 @@ override.tf.json
 
 # Plan files contain provider credentials and resource data; never commit them
 tfplan
+tfplan-*
+tfplan.*
 *.tfplan
+*.tfplan.*
 
 # Ignore CLI configuration files
 .terraformrc
