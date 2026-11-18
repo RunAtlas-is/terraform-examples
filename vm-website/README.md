@@ -58,7 +58,7 @@ ssh_public_key = "ssh-rsa AAAA..."               # Your SSH public key
 
 # That's all you need! The defaults below are already optimized for Atlas Cloud:
 # - zone: "is1"
-# - instance_service_offering: "Atlas.a4" (2 vCPU, 4GB RAM, 20GB disk)
+# - instance_service_offering: "Atlas.a4" (1 vCPU, 4 GiB RAM, 20 GiB disk)
 # - network_offering: "DefaultIsolatedNetworkOfferingWithSourceNatService"
 
 # HTTPS Configuration (optional - leave empty for HTTP-only)
@@ -101,7 +101,7 @@ terraform destroy
 ### What Gets Created
 
 - **Network:** Isolated network with egress firewall rules (HTTP, HTTPS, DNS)
-- **VM:** Ubuntu 24.04 LTS (2 vCPU, 4GB RAM, 20GB disk)
+- **VM:** Ubuntu 24.04 LTS (1 vCPU, 4 GiB RAM, 20 GiB disk)
 - **Web Server:** nginx automatically installed and configured via cloud-init
 - **Landing Page:** Beautiful responsive HTML page
 - **Public IP:** Static IP with port forwarding (HTTP 80, SSH 22)

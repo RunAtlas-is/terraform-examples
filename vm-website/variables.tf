@@ -42,7 +42,7 @@ variable "zone" {
 variable "instance_service_offering" {
   type        = string
   default     = "Atlas.a4"
-  description = "VM instance size (Atlas.a4 = 2 vCPU, 4GB RAM, 20GB disk)"
+  description = "VM instance size (Atlas.a4 = 1 vCPU, 4 GiB RAM, 20 GiB disk)"
 }
 
 variable "instance_template" {
